@@ -32,6 +32,7 @@
 				}
 			}
 			catch(PDOException $error){
+				echo "connection failed \n";
 				return $error->getMessage();
 			}
 			return self::$bridge;

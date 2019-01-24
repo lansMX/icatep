@@ -9,7 +9,6 @@
 
 
 	/**
-	 *
 	 * Class in BD is named as cat_articulo
 	 *
 	 */
@@ -23,18 +22,12 @@
 			try {
 				$this->con = DBCtn::get();
 				
-				if($this->con) throw new \Exception("Not connected");
-				
 				$query = 'SELECT * FROM cat_articulo;';
-            	// SELECT Max(' . $id . ') as idMax FROM '.$this->model_table.';
-				$stmt = $this->conn->prepare($query);
+            	
+				$stmt = $this->con->query($query);
 				
-				$stmt->execute();
-				
-				return $stmt->fetchAll(PDO::FETCH_ASSOC);
+				return $stmt->fetchAll(DBCtn::FETCH_ASSOC);
 
-			} catch (\Exception $e) {
-				return $e;
 			} catch (\PDOException $e) {
 				return $e;
 			}finally{
@@ -43,12 +36,25 @@
 		}
 
 		public function add_product($obj_cat_articulo){
+			$this->con = null;
+			try {
+				$this->con = DBCtn::get();
+				
+				$query = 'INSERT INTO cat_articulo () VALUES ();';
+            	
+				$stmt = $this->con->query($query);
+				
+				return $stmt->fetchAll(DBCtn::FETCH_ASSOC);
 
+			} catch (\PDOException $e) {
+				return $e;
+			}finally{
+				$this->con = DBCtn::disconnect();
+			}
 		}
 	}
 
 
 	$t =new cat_articulo_impl();
-	var_dump($t->get_all());
 
 ?>
